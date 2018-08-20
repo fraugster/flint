@@ -20,12 +20,6 @@
   version = "v1.0.0"
 
 [[projects]]
-  branch = "master"
-  name = "github.com/shurcooL/go"
-  packages = ["generated"]
-  revision = "9e1955d9fb6e1ee2345ba1f5e71669263e719e27"
-
-[[projects]]
   name = "github.com/stretchr/testify"
   packages = [
     "assert",
@@ -37,6 +31,6 @@
 [solve-meta]
   analyzer-name = "dep"
   analyzer-version = 1
-  inputs-digest = "d532245a41b508ab8ba51c958d6561f856482912314151e1d15b762c232be75a"
+  inputs-digest = "46b1e2f142877338234b6f6bc34a7d11e5bc08fb5e8248aad0c49a3f0953186e"
   solver-name = "gps-cdcl"
   solver-version = 1

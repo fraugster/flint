@@ -16,7 +16,6 @@ import (
 
 	_ "github.com/fraugster/flint/imports"
 	"github.com/fraugster/flint/plugins"
-	"github.com/shurcooL/go/generated"
 )
 
 var (
@@ -112,20 +111,16 @@ func lintFiles(filenames ...string) {
 				continue
 			}
 		}
-		if !*checkGenerated {
-			gen, err := generated.ParseFile(filename)
-			if err != nil {
-				fmt.Fprintln(os.Stderr, err)
-				continue
-			}
-			if gen {
-				continue
-			}
-		}
 		src, err := ioutil.ReadFile(filename)
 		if err != nil {
 			fmt.Fprintln(os.Stderr, err)
 			continue
+		}
+		if !*checkGenerated {
+			gen := isGenerated(src)
+			if gen {
+				continue
+			}
 		}
 		files[filename] = src
 	}
