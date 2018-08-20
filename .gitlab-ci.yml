@@ -1,0 +1,18 @@
+image: golang:1.10
+
+stages:
+- dogfood
+
+before_script:
+- go version
+- mkdir -p $GOPATH/src/gitlab.n0q.eu/core-pod
+- cd $GOPATH/src/gitlab.n0q.eu/core-pod
+- ln -s $CI_PROJECT_DIR
+- cd $CI_PROJECT_NAME
+
+dogfood:
+  stage: dogfood
+  script:
+  - go test ./...
+  - go build
+  - ./flint ./...
