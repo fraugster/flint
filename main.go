@@ -22,6 +22,7 @@ import (
 var (
 	setExitStatus  = flag.Bool("set_exit_status", true, "set exit status to 1 if any issues are found")
 	checkGenerated = flag.Bool("generated", false, "also check generated files (by the standard generated flag)")
+	ignorePattern  = flag.String("ignore", "", "file pattern to ignore. based on https://golang.org/pkg/path/#Match")
 	suggestions    int
 	buildContext   = build.Default
 	goroot         = filepath.Clean(runtime.GOROOT())
@@ -105,6 +106,12 @@ func exists(filename string) bool {
 func lintFiles(filenames ...string) {
 	files := make(map[string][]byte)
 	for _, filename := range filenames {
+		if strings.Trim(*ignorePattern, "\n\t ") != "" {
+			// bad pattern never match :D so ignore the error
+			if ok, _ := filepath.Match(*ignorePattern, filename); ok {
+				continue
+			}
+		}
 		if !*checkGenerated {
 			gen, err := generated.ParseFile(filename)
 			if err != nil {
