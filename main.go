@@ -108,7 +108,7 @@ func lintFiles(filenames ...string) {
 	for _, filename := range filenames {
 		if strings.Trim(*ignorePattern, "\n\t ") != "" {
 			// bad pattern never match :D so ignore the error
-			if ok, _ := filepath.Match(*ignorePattern, filename); ok {
+			if ok, _ := filepath.Match(*ignorePattern, filepath.Base(filename)); ok {
 				continue
 			}
 		}
