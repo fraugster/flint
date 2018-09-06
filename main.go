@@ -87,7 +87,7 @@ func main() {
 	}
 
 	if *setExitStatus && suggestions > 0 {
-		fmt.Fprintf(os.Stderr, "Found %d lint suggestions; failing.\n", suggestions)
+		fmt.Printf("Found %d lint suggestions; failing.\n", suggestions)
 		os.Exit(1)
 	}
 }
@@ -127,7 +127,7 @@ func lintFiles(filenames ...string) {
 
 	for i := range files {
 		if err := plugins.Call(context.Background(), files[i]); err != nil {
-			fmt.Fprintf(os.Stderr, "%s => %v\n", i, err)
+			fmt.Printf("%s => %v\n", i, err)
 			suggestions++
 		}
 	}
