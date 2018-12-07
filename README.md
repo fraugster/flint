@@ -16,9 +16,9 @@ import (
     "os"
     "another"
 
-    "external.com/ooo" // fragmented external imports section
+        "external.com/ooo" // empty space
 
-        "external.com/gsggs // empty space
+    "external.com/gsggs // third import group not allowed
 ```
 
 ### Installation:
