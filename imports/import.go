@@ -23,6 +23,10 @@ func (fv *walker) Visit(node ast.Node) ast.Visitor {
 		case *ast.GenDecl:
 			fv.counter++
 			src := string(fv.src[node.Pos()-1 : node.End()-1])
+			if src == `import "C"` { // specifically ignore import "C" as this is a valid case where more than one import block may appear in code.
+				fv.counter--
+				return fv
+			}
 
 			exam := multiLiner
 			// One liner import
