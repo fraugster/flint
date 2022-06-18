@@ -1,10 +1,10 @@
 package imports
 
 import (
+	"errors"
+	"fmt"
 	"regexp"
 	"strings"
-
-	"github.com/pkg/errors"
 )
 
 var (
@@ -15,7 +15,7 @@ var (
 
 func oneLiner(in string) error {
 	if !one.MatchString(in) {
-		return errors.Errorf("invalid one liner import : %s", in)
+		return fmt.Errorf("invalid one liner import : %s", in)
 	}
 	return nil
 }
@@ -23,7 +23,7 @@ func oneLiner(in string) error {
 func moreLiner(in string) (string, error) {
 	res := more.FindAllStringSubmatch(in, -1)
 	if len(res) != 1 {
-		return "", errors.Errorf("invalid multi line import : %s", in)
+		return "", fmt.Errorf("invalid multi line import : %s", in)
 	}
 
 	return res[0][2], nil
@@ -32,7 +32,7 @@ func moreLiner(in string) (string, error) {
 func multiLiner(in string) error {
 	all := strings.Split(in, "\n")
 	if all[0] != "import (" || all[len(all)-1] != ")" {
-		return errors.Errorf("invalid begin or end for import block was : %s", in)
+		return fmt.Errorf("invalid begin or end for import block was : %s", in)
 	}
 
 	var state int
@@ -59,7 +59,7 @@ func handleExpectation(line string, state *int) error {
 			*state = 2
 			return nil
 		case 2:
-			return errors.New("the 2nd emptyline is not allowed inside import")
+			return errors.New("the 2nd empty line is not allowed inside import")
 		}
 	}
 	imprt, err := moreLiner(line)

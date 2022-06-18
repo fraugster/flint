@@ -1,1 +1,9 @@
+*.exe
+.idea
+.vscode
+*.iml
+*.prof
+*.test
+.DS_Store
+
 flint
