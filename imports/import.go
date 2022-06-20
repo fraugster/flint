@@ -2,12 +2,12 @@ package imports
 
 import (
 	"context"
+	"errors"
 	"go/ast"
 	"go/parser"
 	"go/token"
 
 	"github.com/fraugster/flint/plugins"
-	"github.com/pkg/errors"
 )
 
 type walker struct {

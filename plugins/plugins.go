@@ -2,10 +2,9 @@ package plugins
 
 import (
 	"context"
+	"fmt"
 	"log"
 	"sync"
-
-	"github.com/pkg/errors"
 )
 
 var (
@@ -38,7 +37,7 @@ func Call(ctx context.Context, src []byte) error {
 	for i := range plugs {
 		if err := plugs[i].Process(ctx, src); err != nil {
 			// TODO: Multi err
-			return errors.Wrapf(err, "plugin '%s' failed", i)
+			return fmt.Errorf("plugin '%s' failed: %w", i, err)
 		}
 	}
 
